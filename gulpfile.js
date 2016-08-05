@@ -41,6 +41,7 @@ function map_error(err) {
 
 var watchify 			= require('watchify'),
 	browserify 			= require('browserify'),
+	babelify 			= require('babelify'),
 	uglify 				= require('gulp-uglify'),
 
 	rename 				= require('gulp-rename'),
@@ -55,7 +56,7 @@ gulp.task('watch-js', function () {
   		debug: true
 	};
 	var options = assign({}, watchify.args, customOpts);
-	var bundler = watchify(browserify(options));
+	var bundler = watchify(browserify(options)).transform(babelify, { presets: ['es2015'] });
 
 	var scripts = function(changedFiles){
 		return bundle_js(bundler);
@@ -84,10 +85,9 @@ function bundle_js(bundler) {
 }
 
 gulp.task('build-js', function(){
-	var bundler = browserify('./src/index.js');
+	var bundler = browserify('./src/index.js').transform(babelify, { presets: ['es2015'] });
 	return bundle_js(bundler);
 });
-
 //===============================
 // 		Html - Tasks
 //===============================
