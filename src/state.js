@@ -1,8 +1,10 @@
 const canvas = {
-	element: null,
-	context: null,
+	canvas: null,
+	ctx: null,
+
 	buffer: null,
-	bufferContext: null,
+	bctx: null,
+
 	width: 0,
 	height: 0
 };
